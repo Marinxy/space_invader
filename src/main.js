@@ -1392,7 +1392,8 @@ class Game {
             bullet.guidedShot = true;
             bullet.wingmanBullet = true; // Mark as wingman bullet
             
-            this.bullets.push(bullet);
+            // Note: Bullet is automatically added to active objects by the pool
+            // No need to push to this.bullets array
             
             // Play wingman shoot sound
             this.audioSystem.playSound(660, 0.1, 'square');
