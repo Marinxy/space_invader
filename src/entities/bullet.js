@@ -29,12 +29,19 @@ export class Bullet {
         this.y += this.speed;
         this.x += this.speedX; // Apply horizontal velocity
         
-        // Create trail particles periodically (only if game reference exists)
-        if (this.game && Math.random() < 0.3) {
-            const particle = this.game.pools.particles.get();
-            const vx = (Math.random() - 0.5) * 2;
-            const vy = (Math.random() - 0.5) * 2;
-            particle.reset(this.x, this.y, vx, vy, false, 'trail');
+        // Create trail particles periodically (only if game reference exists and has pools)
+        try {
+            if (this.game && this.game.pools && this.game.pools.particles && Math.random() < 0.3) {
+                const particle = this.game.pools.particles.get();
+                if (particle) {
+                    const vx = (Math.random() - 0.5) * 2;
+                    const vy = (Math.random() - 0.5) * 2;
+                    particle.reset(this.x, this.y, vx, vy, false, 'trail');
+                }
+            }
+        } catch (error) {
+            // Silently ignore particle creation errors to prevent game breaking
+            console.warn('Bullet trail particle creation failed:', error);
         }
     }
     
