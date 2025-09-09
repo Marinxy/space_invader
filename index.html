@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern Space Invaders game with enhanced graphics, sound, and controls">
+    <meta name="keywords" content="space invaders, game, retro, arcade, HTML5, canvas">
+    <meta name="theme-color" content="#0f0f23">
+    <title>Modern Space Invaders</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preload game assets for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Add favicon for better branding -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🚀</text></svg>">
+</head>
+<body>
+    <div class="main-layout">
+        <!-- Left Legend Panel -->
+        <div class="legend-panel left-legend" role="region" aria-label="Power-up legend">
+            <h3>Power-ups Legend</h3>
+            <div class="legend-list">
+                <div class="legend-item"><span class="legend-icon">🛡️</span><span class="legend-text">Shield - Permanent protection until hit</span></div>
+                <div class="legend-item"><span class="legend-icon">⚡</span><span class="legend-text">Rapid Fire - Faster shooting rate</span></div>
+                <div class="legend-item"><span class="legend-icon">🔫</span><span class="legend-text">Quad Shot - Shoot 4 bullets at once</span></div>
+                <div class="legend-item"><span class="legend-icon">🐌</span><span class="legend-text">Slow Motion - Slower alien movement</span></div>
+                <div class="legend-item"><span class="legend-icon">💥</span><span class="legend-text">Bomb - Instant screen clear</span></div>
+                <div class="legend-item"><span class="legend-icon">✨</span><span class="legend-text">2x Points - Double score multiplier</span></div>
+                <div class="legend-item"><span class="legend-icon">🔴</span><span class="legend-text">Laser - Powerful piercing shots</span></div>
+            </div>
+        </div>
+
+        <!-- Center Game Area -->
+        <div class="game-container" role="main" aria-label="Space Invaders Game">
+        <div class="game-header">
+            <h1 id="game-title">SPACE INVADERS</h1>
+            <div class="score-container" role="region" aria-label="Game statistics">
+                <span class="score" aria-label="Current score">Score: <span id="score" aria-live="polite">0</span></span>
+                <span class="lives" aria-label="Lives remaining">Lives: <span id="lives" aria-live="polite">3</span></span>
+                <span class="high-score" aria-label="High score">High Score: <span id="highScore" aria-live="polite">0</span></span>
+                <span class="bomb-status" aria-label="Bombs available">💣 Bombs: <span id="bombCount" aria-live="polite">0</span></span>
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas" width="800" height="600" 
+                aria-label="Game canvas" 
+                tabindex="0"
+                role="application"
+                aria-describedby="game-instructions">
+            <p>Your browser does not support the HTML5 canvas element. Please upgrade to a modern browser to play this game.</p>
+        </canvas>
+        
+        <div class="game-controls">
+            <p id="game-instructions">
+                <kbd>Arrow Keys</kbd> or <kbd>Mouse</kbd> to move, <kbd>Spacebar</kbd> or <kbd>Mouse Hold</kbd> to shoot, <kbd>B</kbd> or <kbd>Right Click</kbd> for bomb | 
+                <kbd>F</kbd> for fullscreen, <kbd>ESC</kbd> to pause
+            </p>
+            
+            
+            <div class="mobile-controls" style="display: none;" role="region" aria-label="Touch controls">
+                <div class="control-pad">
+                    <button id="leftBtn" class="control-btn" aria-label="Move left" type="button">←</button>
+                    <button id="rightBtn" class="control-btn" aria-label="Move right" type="button">→</button>
+                </div>
+                <button id="shootBtn" class="control-btn" aria-label="Shoot" type="button">🔥</button>
+            </div>
+            
+            <div class="control-buttons" role="region" aria-label="Game controls">
+                <button id="startBtn" type="button" aria-describedby="start-help">Start Game</button>
+                <button id="pauseBtn" type="button" aria-describedby="pause-help">Pause</button>
+                <button id="soundBtn" type="button" aria-describedby="sound-help">Sound: ON</button>
+                <button id="musicBtn" type="button" aria-describedby="music-help">Music: ON</button>
+                <button id="fullscreenBtn" type="button" aria-describedby="fullscreen-help">Fullscreen</button>
+            </div>
+            
+            <!-- Hidden help text for screen readers -->
+            <div class="sr-only">
+                <span id="start-help">Start a new game</span>
+                <span id="pause-help">Pause or resume the current game</span>
+                <span id="sound-help">Toggle sound effects on or off</span>
+                <span id="music-help">Toggle background music on or off</span>
+                <span id="fullscreen-help">Enter or exit fullscreen mode</span>
+            </div>
+        </div>
+        
+        <!-- Loading indicator -->
+        <div id="loading" class="loading-indicator" style="display: none;" aria-live="polite">
+            <div class="spinner"></div>
+            <p>Loading game...</p>
+        </div>
+        
+        <!-- Error message container -->
+        <div id="error-message" class="error-message" style="display: none;" role="alert" aria-live="assertive">
+            <p>An error occurred while loading the game. Please refresh the page and try again.</p>
+        </div>
+        </div>
+
+        <!-- Right Legend Panel -->
+        <div class="legend-panel right-legend" role="region" aria-label="Advanced power-up legend">
+            <h3>Advanced Power-ups</h3>
+            <div class="legend-list">
+                <div class="legend-item"><span class="legend-icon">💫</span><span class="legend-text">Split Shot - Bullets split into fragments</span></div>
+                <div class="legend-item"><span class="legend-icon">🎯</span><span class="legend-text">Guided Shot - Bullets track enemies</span></div>
+                <div class="legend-item"><span class="legend-icon">⏰</span><span class="legend-text">Time Warp - Slows enemy bullets</span></div>
+                <div class="legend-item"><span class="legend-icon">💎</span><span class="legend-text">Diamond Shot - Bullets pierce through enemies</span></div>
+                <div class="legend-item"><span class="legend-icon">🚀</span><span class="legend-text">Wingman - Add-on spaceship shoots guided bullets</span></div>
+                <div class="legend-item"><span class="legend-icon">⚡</span><span class="legend-text">Chain Lightning - Bullets chain between enemies</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game script -->
+    <script src="src/main.js" type="module"></script>
+    
+    <!-- Service worker for offline support (optional) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {
+                    // Service worker registration failed, but game can still work
+                });
+            });
+        }
+    </script>
+</body>
+</html>
