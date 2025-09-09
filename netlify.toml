@@ -1,0 +1,85 @@
+[build]
+  # Directory to change to before starting a build
+  base = "."
+  
+  # Directory that contains the deploy-ready HTML files and assets
+  publish = "."
+  
+  # Default build command
+  command = "echo 'No build step required for static HTML game'"
+
+[build.environment]
+  # Node.js version for any build tools
+  NODE_VERSION = "18"
+
+# Redirect rules for SPA-like behavior
+[[redirects]]
+  # Handle client-side routing - redirect all 404s to index.html
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache static assets
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    # Don't cache HTML files
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    # Cache JavaScript files
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    # Cache CSS files
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css; charset=utf-8"
+
+# Functions (if needed in the future)
+[functions]
+  directory = "netlify/functions"
+
+# Edge functions (if needed in the future)
+[edge_functions]
+  directory = "netlify/edge-functions"
+
+# Form handling (if needed in the future)
+[forms]
+  directory = "netlify/forms"
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  [plugins.inputs.thresholds]
+    performance = 0.8
+    accessibility = 0.9
+    best-practices = 0.9
+    seo = 0.9
+
+# Branch-specific settings
+[context.production]
+  command = "echo 'Production build - no additional steps needed'"
+
+[context.deploy-preview]
+  command = "echo 'Deploy preview - no additional steps needed'"
+
+[context.branch-deploy]
+  command = "echo 'Branch deploy - no additional steps needed'"

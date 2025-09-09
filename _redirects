@@ -1,0 +1,9 @@
+# Netlify redirects file
+# This ensures all routes are handled by the main HTML file
+
+# Handle all routes - redirect to index.html for SPA-like behavior
+/*    /index.html   200
+
+# Optional: Handle specific routes if needed in the future
+# /game    /index.html   200
+# /play    /index.html   200

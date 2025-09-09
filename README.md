@@ -90,6 +90,11 @@ A modern, feature-rich implementation of the classic Space Invaders arcade game 
    - Press Spacebar or hold mouse to shoot
    - Press B or right-click to use bombs
 
+### 🌐 Live Demo
+**Play the game online**: [https://space-invaders-game.netlify.app](https://space-invaders-game.netlify.app)
+
+The game is deployed on Netlify and ready to play in your browser!
+
 ## 🎮 How to Play
 
 ### Basic Controls

@@ -1,0 +1,46 @@
+{
+  "name": "space-invaders-game",
+  "version": "1.0.0",
+  "description": "Modern Space Invaders game built with HTML5 Canvas and vanilla JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build step required for static HTML game'",
+    "deploy": "echo 'Deploy to Netlify via git push'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "space-invaders",
+    "game",
+    "html5",
+    "canvas",
+    "javascript",
+    "arcade",
+    "retro",
+    "browser-game"
+  ],
+  "author": "Marinxy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Marinxy/space_invader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Marinxy/space_invader/issues"
+  },
+  "homepage": "https://space-invaders-game.netlify.app",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
