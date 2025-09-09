@@ -53,16 +53,17 @@
     Content-Type = "text/css; charset=utf-8"
 
 # Functions (if needed in the future)
-[functions]
-  directory = "netlify/functions"
+# [functions]
+#   directory = "netlify/functions"
 
 # Edge functions (if needed in the future)
-[edge_functions]
-  directory = "netlify/edge-functions"
+# [[edge_functions]]
+#   path = "/hello"
+#   function = "hello"
 
 # Form handling (if needed in the future)
-[forms]
-  directory = "netlify/forms"
+# [forms]
+#   directory = "netlify/forms"
 
 # Plugin configuration
 [[plugins]]
